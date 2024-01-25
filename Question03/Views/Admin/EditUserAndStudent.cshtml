@@ -1,0 +1,70 @@
+﻿@model Libraries.Repository.UserAndStudentViewModel
+@{
+    ViewBag.Title = "EditUserAndStudent";
+}
+
+<h2>EditUserAndStudent</h2>
+
+@using (Html.BeginForm("EditUserAndStudent", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+<div>
+    <h4>User Details</h4>
+    <hr />
+
+    @Html.HiddenFor(model => model.Users.UserID)
+
+    <div>
+        @Html.LabelFor(model => model.Users.UserName)
+        @Html.EditorFor(model => model.Users.UserName)
+        @Html.ValidationMessageFor(model => model.Users.UserName)
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.Users.Password)
+        @Html.EditorFor(model => model.Users.Password)
+        @Html.ValidationMessageFor(model => model.Users.Password)
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.Users.QuestionCode)
+        @Html.EditorFor(model => model.Users.QuestionCode)
+        @Html.ValidationMessageFor(model => model.Users.QuestionCode)
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.Users.SecurityAnswer)
+        @Html.EditorFor(model => model.Users.SecurityAnswer)
+        @Html.ValidationMessageFor(model => model.Users.SecurityAnswer)
+    </div>
+
+    @Html.HiddenFor(model => model.Students.ID)
+
+    <div>
+        @Html.LabelFor(model => model.Students.Name)
+        @Html.EditorFor(model => model.Students.Name)
+        @Html.ValidationMessageFor(model => model.Students.Name)
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.Students.Age)
+        @Html.EditorFor(model => model.Students.Age)
+        @Html.ValidationMessageFor(model => model.Students.Age)
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.Students.Address)
+        @Html.EditorFor(model => model.Students.Address)
+        @Html.ValidationMessageFor(model => model.Students.Address)
+    </div>
+
+    <div>
+        <input type="submit" value="Save" />
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to Dashboard", "AdminDashboard")
+</div>

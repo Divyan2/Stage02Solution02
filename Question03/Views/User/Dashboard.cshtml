@@ -1,0 +1,28 @@
+﻿@model Question03.Models.UserDashboardViewModel
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h2>Dashboard</h2>
+
+<div>
+    <h3>Student Information</h3>
+    <p>Name: @Model.Student.Name</p>
+    <p>Age: @Model.Student.Age</p>
+    <p>Address: @Model.Student.Address</p>
+    <p>Username: @Model.User.UserName</p>
+
+    @{
+        if (User.Identity.IsAuthenticated)
+        {
+            <text>
+                <li>@Html.ActionLink("Logout", "Logout", "User")</li>
+            </text>
+        }
+        else
+        {
+            // Display other navigation or login links
+        }
+    }
+</div>

@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Upload";
+    Layout = null;
+}
+<script src="https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<h2>Upload</h2>
+
+@using (Html.BeginForm("Upload", "Excel", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="file" id="input" />
+    <input type="submit" value="Upload" />
+    <input type="button" value="ShowRecord" id="button" />
+}
+<a href="@Url.Action("Download", "Excel")" class="btn btn-success">Download</a>
+@if (ViewBag.errormessage != null)
+{
+    <p style="color: red;">@ViewBag.errormessage</p>
+}
+
+@if (ViewBag.SuccessMessage != null)
+{
+    <p style="color: green;">@ViewBag.SuccessMessage</p>
+}
+<table id="tbl-data"></table>
+<script>
+    $(document).ready(function () {
+        $('#button').on('click', function () {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetExcelData", "Excel")',
+                dataType: 'json',
+                success: function (data) {
+                    if (data && !data.error) {
+                        displayExcelData(data);
+                    } else {
+                        alert(data.error || 'No data available.');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error retrieving Excel data:', error);
+                    alert('Error retrieving Excel data.');
+                }
+            });
+        });
+
+        function displayExcelData(data) {
+            var table = $('#tbl-data');
+            table.empty();
+
+            for (var i = 0; i < data.length; i++) {
+                var row = $('<tr></tr>');
+                for (var j = 0; j < data[i].length; j++) {
+                    var cell = $('<td></td>').text(data[i][j]);
+                    row.append(cell);
+                }
+                table.append(row);
+            }
+        }
+    });
+</script>

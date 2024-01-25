@@ -1,0 +1,58 @@
+﻿@model Question03.Models.AdminDashboardViewModel
+
+@{
+    ViewBag.Title = "AdminDashboard";
+}
+
+<h2>AdminDashboard</h2>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Age</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Question Code</th>
+            <th>Question Answer</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var entry in Model.UserAndStudentList)
+        {
+            <tr>
+                <td>@entry.Students.Name</td>
+                <td>@entry.Students.Age</td>
+                <td>@entry.Students.Address</td>
+                <td>@entry.Users.UserName</td>
+                <td>@entry.Users.Password</td>
+                <td>@entry.Users.QuestionCode</td>
+                <td>@entry.Users.SecurityAnswer</td>
+                <td>
+                    <a href="@Url.Action("EditUserAndStudent", "Admin", new { userId = entry.Users.UserID })">Edit</a>
+                    <form action="@Url.Action("DeleteUserAndStudent", "Admin")" method="post">
+                        @Html.Hidden("userId", entry.Users.UserID)
+                        @Html.Hidden("studentId", entry.Students.ID)
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        <text>
+            <li>@Html.ActionLink("Logout", "Logout", "Admin")</li>
+        </text>
+    }
+    else
+    {
+        // Display other navigation or login links
+    }
+}
