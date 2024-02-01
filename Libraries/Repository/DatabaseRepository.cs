@@ -47,7 +47,6 @@ namespace Libraries.Repository
             }
         }
 
-
         public bool ChangePassword(string userName, int securityCode, string securityAnswer, string newPassword)
         {
             var user = _context.Users.SingleOrDefault(c => c.UserName == userName &&
@@ -173,6 +172,16 @@ namespace Libraries.Repository
         public List<StudentTable> GetAllStudents()
         {
             return _context.Students.ToList();
+        }
+
+        public List<ExcelDataModel> GetAllExcelData()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateExcelData(ExcelDataModel data)
+        {
+            throw new NotImplementedException();
         }
     }
 }

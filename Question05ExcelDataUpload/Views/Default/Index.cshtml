@@ -1,0 +1,122 @@
+﻿@model List<Libraries.Model.ExcelDataModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Excel Data</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #e0e0e0;
+            font-family: Arial, sans-serif;
+        }
+        
+        h2 {
+            color: #4CAF50;
+        }
+
+        #uploadForm {
+            margin-top: 20px;
+        }
+
+        #showRecordsBtn {
+            margin-top: 10px;
+        }
+
+        #recordsContainer {
+            background-color: #f4f4f4;
+            max-height: 500px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+
+        #recordsTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+
+            #recordsTable caption {
+                font-size: 1.2em;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+
+            #recordsTable th, #recordsTable td {
+                padding: 10px;
+                border: 1px solid #ddd;
+            }
+
+            #recordsTable th {
+                background-color: #4CAF50;
+                color: white;
+            }
+    </style>
+</head>
+<body>
+    <div id="uploadForm">
+        <h2>Upload Data</h2>
+        @using (Html.BeginForm("UploadFile", "Default", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div>
+                <label for="file">Choose Excel File:</label>
+                <input type="file" name="file" id="file" />
+                <input type="submit" value="Upload" />
+            </div>
+        }
+    </div>
+
+    <button id="showRecordsBtn" class="btn btn-primary">Show Records</button>
+
+    @if (ViewBag.errormessage != null)
+    {
+        <p style="color: red;">@ViewBag.errormessage</p>
+    }
+
+    @if (ViewBag.SuccessMessage != null)
+    {
+        <p style="color: green;">@ViewBag.SuccessMessage</p>
+    }
+
+    <div id="recordsContainer" style="display: none;">
+        <table id="recordsTable">
+            <caption>Records</caption>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Gender</th>
+                    <th>Country</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var data in Model)
+                {
+                    <tr>
+                        <td>@data.Id</td>
+                        <td>@data.FirstName</td>
+                        <td>@data.LastName</td>
+                        <td>@data.Gender</td>
+                        <td>@data.Country</td>
+                        <td>@data.Age</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Add click event for the "Show Records" button
+        document.getElementById("showRecordsBtn").addEventListener("click", function () {
+            var tableContainer = document.getElementById("recordsContainer");
+            tableContainer.style.display = tableContainer.style.display === "none" ? "block" : "none";
+        });
+    </script>
+</body>
+</html>

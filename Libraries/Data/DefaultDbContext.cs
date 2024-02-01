@@ -20,5 +20,6 @@ namespace Libraries.Data
         public DbSet<SecurityQuestionTable> SecurityQuestions { get; set; }
         public DbSet<UserLoginAndSecurityTable> Users { get; set; }
         public DbSet<ExcelFileModel> ExcelFiles { get; set; }
+        public DbSet<ExcelDataModel> ExcelData { get; set; }
     }
 }

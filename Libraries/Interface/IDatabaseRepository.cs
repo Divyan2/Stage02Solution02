@@ -28,5 +28,9 @@ namespace Libraries.Interface
         List<SecurityQuestionTable> GetSecurityQuestions();
         StudentTable GetStudentById(string userID);
         bool LoginAdmin(string userName, string password);
+
+        //ExcelDataUpload
+        List<ExcelDataModel> GetAllExcelData();
+        void UpdateExcelData(ExcelDataModel data);  
     }
 }
